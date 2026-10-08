@@ -1,26 +1,636 @@
 @import "tailwindcss";
+@import "../themes/linear/theme.css";
+@import "../themes/bento/theme.css";
+@import "../themes/y2k/theme.css";
+@import "../themes/swiss/theme.css";
+@import "../themes/clay/theme.css";
+@import "../themes/duo/theme.css";
+@import "../themes/apple/theme.css";
+@import "../themes/glass/theme.css";
+@import "../themes/stripe/theme.css";
+@import "../themes/minimal/theme.css";
+@import "../themes/bobble/theme.css";
+@import "../themes/comic/theme.css";
+@import "../themes/meme/theme.css";
+@import "../themes/springs/theme.css";
+@import "../themes/cannon/theme.css";
 
+/*
+ * Design tokens. :root holds the neutral look used by the admin panel;
+ * every voter theme overrides these under [data-theme="<id>"] (src/themes/<id>/theme.css).
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0f1013;
+  --bg-fallback: radial-gradient(ellipse 80% 60% at 50% 0%, #1c1e24, #0f1013 70%);
+  --fg: #ececef;
+  --muted: #8d919b;
+  --accent: #8b8cf6;
+  --accent-fg: #0f1013;
+  --danger: #ff7a7a;
+  --focus: #8b8cf6;
+
+  --font-display: var(--font-inter), system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --display-weight: 700;
+  --display-tracking: -0.03em;
+  --display-transform: none;
+
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-strong: rgba(255, 255, 255, 0.06);
+  --surface-border: rgba(255, 255, 255, 0.09);
+  --surface-shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.7);
+  --surface-blur: 12px;
+  --radius: 16px;
+  --radius-sm: 10px;
+
+  --btn-bg: #ececef;
+  --btn-fg: #0f1013;
+  --btn-radius: 10px;
+  --btn-shadow: none;
+  --btn-border: 0 solid transparent;
+  --btn-weight: 600;
+  --btn-transform: none;
+  --btn-tracking: 0;
+
+  --input-bg: rgba(0, 0, 0, 0.25);
+
+  --selected-border: rgba(139, 140, 246, 0.7);
+  --selected-bg: rgba(139, 140, 246, 0.1);
+  --selected-shadow: 0 0 0 4px rgba(139, 140, 246, 0.14);
+  --back-bg: linear-gradient(135deg, #5e6ad2, #8b8cf6);
+  --back-fg: #fff;
+
+  --monogram-bg: linear-gradient(135deg, #5e6ad2, #a78bfa);
+  --monogram-fg: #fff;
+  --monogram-radius: 10px;
+
+  --bar-fill: #5d6170;
+  --bar-lead: #8b8cf6;
+  --confetti-1: #8b8cf6;
+  --confetti-2: #ececef;
+  --confetti-3: #5e6ad2;
+  --confetti-4: #c4b5fd;
+
+  /* 3D */
+  --tilt-max: 10deg;
+  --perspective: 900px;
 }
 
+/* Tailwind utilities (text-muted, text-fg, border-line…) resolve through the active theme's tokens. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--surface-border);
+  --color-accent: var(--accent);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-fallback), var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+/* ───────── layout ───────── */
+
+.theme-root {
+  position: relative;
+  min-height: 100dvh;
+  background: var(--bg-fallback), var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  overflow-x: clip;
+}
+
+.theme-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  /* lvh = the tallest viewport (browser bars hidden): a constant size while the bars slide during
+     scroll, so the scene is never stretched or re-laid out mid-scroll. */
+  height: 100vh;
+  height: 100lvh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.stage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(28px, 6vw, 72px) 16px 96px;
+}
+
+/* ───────── typography ───────── */
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-transform);
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-transform);
+  line-height: 1.05;
+}
+
+/* ───────── surfaces & controls ───────── */
+
+.panel {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  box-shadow: var(--surface-shadow);
+  backdrop-filter: blur(var(--surface-blur));
+  -webkit-backdrop-filter: blur(var(--surface-blur));
+  padding: clamp(20px, 3vw, 30px);
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: var(--btn-weight);
+  letter-spacing: var(--btn-tracking);
+  text-transform: var(--btn-transform);
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: var(--btn-border);
+  border-radius: var(--btn-radius);
+  box-shadow: var(--btn-shadow);
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn:focus-visible,
+.input:focus-visible,
+.candidate:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.btn--ghost,
+.btn--glass {
+  color: var(--fg);
+  background: var(--surface-strong);
+  box-shadow: inset 0 0 0 1px var(--surface-border);
+  border: 0;
+}
+
+.btn--ghost {
+  background: transparent;
+}
+
+.btn--danger {
+  color: var(--danger);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--danger) 40%, transparent);
+  border: 0;
+}
+
+.btn--small {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+.input {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--fg);
+  background: var(--input-bg);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--selected-border);
+  box-shadow: var(--selected-shadow);
+}
+
+.input::placeholder {
+  color: color-mix(in srgb, var(--muted) 70%, transparent);
+}
+
+textarea.input {
+  min-height: 88px;
+  resize: vertical;
+}
+
+.code-input {
+  font-family: var(--font-mono);
+  font-size: clamp(24px, 6.5vw, 40px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-align: center;
+  text-transform: uppercase;
+  min-height: 88px;
+}
+
+.error {
+  color: var(--danger);
+  font-size: 14px;
+}
+
+.monogram {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: var(--monogram-radius);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 17px;
+  color: var(--monogram-fg);
+  background: var(--monogram-bg);
+}
+
+.monogram--small {
+  width: 40px;
+  height: 40px;
+  font-size: 13px;
+}
+
+.monogram--large {
+  width: 92px;
+  height: 92px;
+  font-size: 30px;
+}
+
+/* ───────── hero stage (boxed 3D scene in the header) ───────── */
+
+.hero-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: -12px 0 40px;
+}
+
+/* Box and canvas sizing live inline in hero-stage.tsx (see the note there). */
+.hero-stage__canvas {
+  display: block;
+  /* Taps on the stage are for the characters; no double-tap zoom delay. */
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+/* Game stages: the finger aims inside the box instead of scrolling the page. */
+.hero-stage--game .hero-stage__canvas {
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.hero-stage--game .hero-stage__scene {
+  border-radius: var(--radius);
+}
+
+.hero-stage__hint {
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.hero-stage__names {
+  display: grid;
+  grid-template-columns: repeat(var(--hero-columns, 2), minmax(0, 1fr));
+  gap: 8px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  font-size: clamp(14px, 3.6vw, 20px);
+  line-height: 1.2;
+}
+
+/* Admin list of votings. */
+.voting-row {
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.voting-row:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.phase-badge {
+  border: 1px solid var(--surface-border);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.phase-badge--open {
+  border-color: #22c55e;
+  color: #22c55e;
+}
+
+.phase-badge--results {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Photo vs initials: every theme shows the candidate's photo when there is one, initials otherwise.
+   The photo reuses the theme's monogram shape (round, square, rounded…) via the .monogram class. */
+.avatar {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.avatar__photo {
+  object-fit: cover;
+  padding: 0;
+}
+
+.avatar--has-photo .avatar__photo + .monogram {
+  display: none;
+}
+
+.pulse-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: 0.3; transform: scale(0.75); }
+}
+
+/* ───────── shared 3D layer ───────── */
+
+/* Pointer-driven tilt (see use-tilt.ts): the hook writes --rx/--ry. */
+.tilt {
+  transform: perspective(var(--perspective)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+.tilt.is-tilting {
+  transition: transform 0.12s ease-out;
+}
+
+/* Entrance: elements swing up out of the screen plane. */
+.rise3d {
+  animation: rise3d 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: 50% 100%;
+}
+
+@keyframes rise3d {
+  from {
+    opacity: 0;
+    transform: perspective(var(--perspective)) translate3d(0, 40px, -120px) rotateX(-28deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Candidate = flip card. Front: who; back (after choosing): confirmation. */
+.candidate {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 104px;
+  padding: 0;
+  text-align: left;
+  color: var(--fg);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.candidate__inner {
+  position: relative;
+  display: grid;
+  min-height: inherit;
+  transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(0.3, 1.4, 0.4, 1);
+}
+
+.candidate[aria-checked="true"] .candidate__inner {
+  transform: rotateY(180deg);
+}
+
+.candidate__face {
+  grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 20px 22px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--surface-shadow);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.candidate:hover .candidate__front {
+  background: var(--surface-strong);
+}
+
+.candidate__back {
+  transform: rotateY(180deg);
+  grid-template-columns: auto 1fr;
+  color: var(--back-fg);
+  background: var(--back-bg);
+  border-color: var(--selected-border);
+  box-shadow: var(--surface-shadow), var(--selected-shadow);
+}
+
+.candidate__check {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--back-fg) 18%, transparent);
+}
+
+.candidate__name {
+  font-family: var(--font-display);
+  font-size: clamp(17px, 2.2vw, 20px);
+  font-weight: var(--display-weight);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+/* ───────── 3D result columns ───────── */
+
+.columns {
+  --depth: 34px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(28px, 7vw, 72px);
+  height: 240px;
+  padding: 20px 0 8px;
+}
+
+.column {
+  --h: 0%;
+  position: relative;
+  width: 64px;
+  height: max(var(--h), 4px);
+  transform-style: preserve-3d;
+  transform: rotateX(-16deg) rotateY(-28deg);
+  transition: height 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.column__face {
+  position: absolute;
+  background: var(--col);
+  backface-visibility: hidden;
+}
+
+.column__front {
+  inset: 0;
+  transform: translateZ(calc(var(--depth) / 2));
+}
+
+.column__back {
+  inset: 0;
+  transform: rotateY(180deg) translateZ(calc(var(--depth) / 2));
+}
+
+.column__right,
+.column__left {
+  top: 0;
+  bottom: 0;
+  left: calc(50% - var(--depth) / 2);
+  width: var(--depth);
+  filter: brightness(0.7);
+}
+
+.column__right {
+  transform: rotateY(90deg) translateZ(32px);
+}
+
+.column__left {
+  transform: rotateY(-90deg) translateZ(32px);
+}
+
+.column__top {
+  left: 0;
+  right: 0;
+  top: calc(var(--depth) / -2);
+  height: var(--depth);
+  transform: rotateX(90deg);
+  filter: brightness(1.25);
+}
+
+/* ───────── confetti (3D) ───────── */
+
+.confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  perspective: 800px;
+  overflow: hidden;
+}
+
+.confetti__piece {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 16px;
+  border-radius: 2px;
+  animation: confetti-fall var(--dur) cubic-bezier(0.2, 0.6, 0.4, 1) var(--delay) forwards;
+}
+
+@keyframes confetti-fall {
+  from {
+    transform: translate3d(0, 0, 0) rotate3d(var(--ax), var(--ay), 0.3, 0deg);
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(var(--dx), 110vh, var(--dz)) rotate3d(var(--ax), var(--ay), 0.3, var(--spin));
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .tilt {
+    transform: none !important;
+  }
+
+  .confetti {
+    display: none;
+  }
 }
