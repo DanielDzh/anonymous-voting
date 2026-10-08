@@ -1,0 +1,86 @@
+/* 6 · Swiss — off-white paper, black type, one red, hard rules and no rounding. */
+[data-theme="swiss"] {
+  color-scheme: light;
+  --bg: #f2f0eb;
+  --bg-fallback: linear-gradient(transparent, transparent);
+  --fg: #111111;
+  --muted: #55524c;
+  --accent: #e3241b;
+  --accent-fg: #ffffff;
+  --danger: #e3241b;
+  --focus: #e3241b;
+
+  --font-display: var(--font-inter), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.065em;
+
+  --surface: #f2f0eb;
+  --surface-strong: #ebe8e1;
+  --surface-border: #111111;
+  --surface-shadow: none;
+  --surface-blur: 0px;
+  --radius: 0px;
+  --radius-sm: 0px;
+
+  --btn-bg: #e3241b;
+  --btn-fg: #ffffff;
+  --btn-radius: 0px;
+  --btn-weight: 800;
+  --btn-transform: uppercase;
+  --btn-tracking: 0.02em;
+
+  --input-bg: #ffffff;
+  --selected-border: #e3241b;
+  --selected-shadow: none;
+  --back-bg: #e3241b;
+  --back-fg: #ffffff;
+
+  --monogram-bg: #111111;
+  --monogram-fg: #f2f0eb;
+  --monogram-radius: 0px;
+
+  --bar-fill: #111111;
+  --bar-lead: #e3241b;
+  --confetti-1: #e3241b;
+  --confetti-2: #111111;
+  --confetti-3: #f2f0eb;
+  --confetti-4: #e3241b;
+}
+
+[data-theme="swiss"] .display {
+  line-height: 0.85;
+}
+
+/* Surfaces become printed blocks: a heavy top rule instead of a box. */
+[data-theme="swiss"] .panel,
+[data-theme="swiss"] .candidate__face {
+  border: 0;
+  border-top: 3px solid #111111;
+}
+
+[data-theme="swiss"] .candidate__name {
+  font-size: clamp(20px, 2.6vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+[data-theme="swiss"] .candidate__back {
+  border-top-color: #e3241b;
+}
+
+[data-theme="swiss"] .tag {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #111111;
+}
+
+[data-theme="swiss"] .heading {
+  letter-spacing: -0.045em;
+}
+
+[data-theme="swiss"] .btn--ghost {
+  color: #111111;
+  box-shadow: inset 0 0 0 2px #111111;
+}

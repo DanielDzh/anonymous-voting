@@ -1,0 +1,62 @@
+/* 8 · Stripe — white canvas, silky gradient ribbon, crisp navy type, big soft card shadows. */
+[data-theme="stripe"] {
+  color-scheme: light;
+  --bg: #ffffff;
+  --bg-fallback: linear-gradient(170deg, rgba(255, 128, 181, 0.5), rgba(144, 137, 252, 0.45) 30%, rgba(0, 212, 255, 0.35) 55%, transparent 70%);
+  --fg: #0a2540;
+  --muted: #425466;
+  --accent: #635bff;
+  --accent-fg: #ffffff;
+  --danger: #df1b41;
+  --focus: #635bff;
+
+  --font-display: var(--font-inter), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.04em;
+
+  --surface: #ffffff;
+  --surface-strong: #f6f9fc;
+  --surface-border: #e3e8ee;
+  --surface-shadow: 0 30px 60px -20px rgba(50, 50, 93, 0.3), 0 18px 36px -18px rgba(0, 0, 0, 0.25);
+  --radius: 14px;
+  --radius-sm: 8px;
+
+  --btn-bg: #635bff;
+  --btn-fg: #ffffff;
+  --btn-radius: 999px;
+  --btn-weight: 600;
+  --btn-shadow: 0 8px 20px -8px rgba(99, 91, 255, 0.8);
+
+  --input-bg: #ffffff;
+  --selected-border: #635bff;
+  --selected-shadow: 0 0 0 3px rgba(99, 91, 255, 0.2);
+  --back-bg: #635bff;
+  --back-fg: #ffffff;
+
+  --monogram-bg: linear-gradient(135deg, #ff80b5, #9089fc);
+  --monogram-fg: #ffffff;
+  --monogram-radius: 10px;
+
+  --bar-fill: #cfd7df;
+  --bar-lead: linear-gradient(180deg, #9089fc, #635bff);
+  --confetti-1: #ff80b5;
+  --confetti-2: #9089fc;
+  --confetti-3: #00d4ff;
+  --confetti-4: #ffcb57;
+}
+
+/* Headline sits on the ribbon: navy with a white halo stays readable over any part of it. */
+[data-theme="stripe"] .display {
+  text-shadow: 0 2px 30px rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="stripe"] .tag {
+  color: #0a2540;
+  font-weight: 600;
+}
+
+[data-theme="stripe"] .btn--ghost {
+  color: #635bff;
+  box-shadow: inset 0 0 0 1px #635bff;
+}

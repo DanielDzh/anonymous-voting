@@ -1,0 +1,68 @@
+/* 7 · Clay — pastel lavender, puffy soft shadows, pressed-in when selected. */
+[data-theme="clay"] {
+  color-scheme: light;
+  --bg: #eef0ff;
+  --bg-fallback: radial-gradient(ellipse 60% 50% at 20% 10%, rgba(255, 179, 199, 0.35), transparent 70%);
+  --fg: #3b3e6b;
+  --muted: #7a7fb8;
+  --accent: #6c63ff;
+  --accent-fg: #ffffff;
+  --danger: #e2557a;
+  --focus: #6c63ff;
+
+  --font-display: var(--font-nunito), sans-serif;
+  --font-body: var(--font-nunito), sans-serif;
+  --display-weight: 900;
+  --display-tracking: -0.02em;
+
+  --surface: #eef0ff;
+  --surface-strong: #f3f4ff;
+  --surface-border: transparent;
+  --surface-shadow: 10px 10px 24px #cdd0ee, -10px -10px 24px #ffffff;
+  --radius: 30px;
+  --radius-sm: 20px;
+
+  --btn-bg: linear-gradient(145deg, #7d75ff, #5b52e8);
+  --btn-fg: #ffffff;
+  --btn-radius: 22px;
+  --btn-weight: 900;
+  --btn-shadow: 6px 6px 16px #b9bcf0, inset -4px -4px 8px rgba(0, 0, 0, 0.18), inset 4px 4px 8px rgba(255, 255, 255, 0.35);
+
+  --input-bg: #eef0ff;
+  --selected-border: transparent;
+  --selected-shadow: inset 6px 6px 14px rgba(0, 0, 0, 0.15), inset -6px -6px 14px rgba(255, 255, 255, 0.25);
+  --back-bg: linear-gradient(145deg, #8f88ff, #5b52e8);
+  --back-fg: #ffffff;
+
+  --monogram-bg: linear-gradient(145deg, #8f88ff, #5b52e8);
+  --monogram-fg: #ffffff;
+  --monogram-radius: 16px;
+
+  --bar-fill: linear-gradient(180deg, #c5c8f2, #a9ade6);
+  --bar-lead: linear-gradient(180deg, #8f88ff, #5b52e8);
+  --confetti-1: #ffb3c7;
+  --confetti-2: #a9c7ff;
+  --confetti-3: #c5b3ff;
+  --confetti-4: #ffd59e;
+}
+
+[data-theme="clay"] .input {
+  border: 0;
+  box-shadow: inset 5px 5px 12px #cdd0ee, inset -5px -5px 12px #ffffff;
+}
+
+[data-theme="clay"] .monogram {
+  box-shadow: inset -3px -3px 6px rgba(0, 0, 0, 0.2), inset 3px 3px 6px rgba(255, 255, 255, 0.4), 4px 4px 10px #c4c7ee;
+}
+
+[data-theme="clay"] .tag {
+  font-family: var(--font-nunito), sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+[data-theme="clay"] .btn--ghost {
+  color: #3b3e6b;
+  background: #eef0ff;
+  box-shadow: 5px 5px 12px #cdd0ee, -5px -5px 12px #ffffff;
+}

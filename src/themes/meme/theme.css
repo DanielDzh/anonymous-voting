@@ -1,0 +1,112 @@
+/* 13 · Меми — classic meme captions (white, black outline, condensed caps), photos as die-cut stickers. */
+[data-theme="meme"] {
+  color-scheme: light;
+  --bg: #ececec;
+  --bg-fallback: radial-gradient(ellipse 70% 50% at 50% 0%, #ffffff, transparent 70%);
+  --fg: #111111;
+  --muted: #5e5e5e;
+  --accent: #111111;
+  --accent-fg: #ffffff;
+  --danger: #d10000;
+  --focus: #111111;
+
+  --font-display: var(--font-oswald), Impact, sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  --display-weight: 700;
+  --display-tracking: 0.01em;
+  --display-transform: uppercase;
+
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --surface-border: transparent;
+  --surface-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.35);
+  --radius: 26px;
+  --radius-sm: 14px;
+
+  --btn-bg: #111111;
+  --btn-fg: #ffffff;
+  --btn-radius: 14px;
+  --btn-weight: 700;
+  --btn-transform: uppercase;
+  --btn-tracking: 0.04em;
+
+  --input-bg: #ffffff;
+  --selected-border: #111111;
+  --selected-shadow: 0 0 0 3px #111111;
+  --back-bg: #111111;
+  --back-fg: #ffffff;
+
+  --monogram-bg: #111111;
+  --monogram-fg: #ffffff;
+  --monogram-radius: 50%;
+
+  --bar-fill: #bdbdbd;
+  --bar-lead: #111111;
+  --confetti-1: #111111;
+  --confetti-2: #ffffff;
+  --confetti-3: #ffc83d;
+  --confetti-4: #d10000;
+}
+
+/* The meme caption look: white letters, thick black outline. */
+[data-theme="meme"] .display,
+[data-theme="meme"] .heading {
+  color: #ffffff;
+  -webkit-text-stroke: 3px #111111;
+  paint-order: stroke fill;
+  line-height: 1;
+}
+
+[data-theme="meme"] .heading {
+  -webkit-text-stroke-width: 2px;
+}
+
+/* Photo as a sticker: white die-cut border, drop shadow, slightly crooked. */
+[data-theme="meme"] .candidate__front .monogram {
+  width: 84px;
+  height: 84px;
+  font-size: 24px;
+  box-shadow: 0 0 0 5px #ffffff, 0 6px 14px rgba(0, 0, 0, 0.35);
+  transform: rotate(-6deg);
+  transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+[data-theme="meme"] .candidate:hover .candidate__front .monogram {
+  transform: rotate(6deg) scale(1.08);
+}
+
+[data-theme="meme"] .candidate__name {
+  font-family: var(--font-oswald), Impact, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: clamp(20px, 2.6vw, 26px);
+}
+
+[data-theme="meme"] .candidate__back::after {
+  content: "ЦЕ БАЗА";
+  position: absolute;
+  top: -16px;
+  right: 16px;
+  font-family: var(--font-oswald), Impact, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #ffffff;
+  -webkit-text-stroke: 1.5px #111111;
+  paint-order: stroke fill;
+  transform: rotate(-5deg);
+}
+
+[data-theme="meme"] .tag {
+  font-family: var(--font-oswald), Impact, sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: #111111;
+}
+
+[data-theme="meme"] .btn--ghost {
+  color: #111111;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 2px #111111;
+}

@@ -1,0 +1,84 @@
+/* 9 · Duolingo — white, chunky 3D-bottomed buttons and cards, bright friendly colours. */
+[data-theme="duo"] {
+  color-scheme: light;
+  --bg: #ffffff;
+  --bg-fallback: linear-gradient(transparent, transparent);
+  --fg: #3c3c3c;
+  --muted: #777777;
+  --accent: #1cb0f6;
+  --accent-fg: #ffffff;
+  --danger: #ff4b4b;
+  --focus: #1cb0f6;
+
+  --font-display: var(--font-nunito), sans-serif;
+  --font-body: var(--font-nunito), sans-serif;
+  --display-weight: 900;
+  --display-tracking: -0.02em;
+
+  --surface: #ffffff;
+  --surface-strong: #f7f7f7;
+  --surface-border: #e5e5e5;
+  --surface-shadow: none;
+  --radius: 18px;
+  --radius-sm: 14px;
+
+  --btn-bg: #58cc02;
+  --btn-fg: #ffffff;
+  --btn-radius: 16px;
+  --btn-weight: 900;
+  --btn-transform: uppercase;
+  --btn-tracking: 0.06em;
+  --btn-shadow: 0 5px 0 #58a700;
+
+  --input-bg: #f7f7f7;
+  --selected-border: #84d8ff;
+  --selected-shadow: none;
+  --back-bg: #ddf4ff;
+  --back-fg: #1899d6;
+
+  --monogram-bg: #ffc800;
+  --monogram-fg: #ffffff;
+  --monogram-radius: 14px;
+
+  --bar-fill: #e5e5e5;
+  --bar-lead: #58cc02;
+  --confetti-1: #58cc02;
+  --confetti-2: #1cb0f6;
+  --confetti-3: #ffc800;
+  --confetti-4: #ff4b4b;
+}
+
+/* The signature chunky bottom edge, pressed down on click. */
+[data-theme="duo"] .panel,
+[data-theme="duo"] .candidate__face {
+  border-width: 2px;
+  border-bottom-width: 5px;
+}
+
+[data-theme="duo"] .candidate__back {
+  border-color: #84d8ff;
+}
+
+[data-theme="duo"] .candidate__back .monogram,
+[data-theme="duo"] .candidate__check {
+  background: #1cb0f6;
+  color: #ffffff;
+}
+
+[data-theme="duo"] .btn:active:not(:disabled) {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 #58a700;
+}
+
+[data-theme="duo"] .tag {
+  font-family: var(--font-nunito), sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #58cc02;
+}
+
+[data-theme="duo"] .btn--ghost {
+  color: #1cb0f6;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 2px #e5e5e5, 0 4px 0 #e5e5e5;
+}

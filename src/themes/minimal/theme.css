@@ -1,0 +1,78 @@
+/* 10 · Minimal — warm paper, ink, hairlines. No colour, no shadows, nothing extra. */
+[data-theme="minimal"] {
+  color-scheme: light;
+  --bg: #f7f6f3;
+  --bg-fallback: linear-gradient(transparent, transparent);
+  --fg: #1c1b19;
+  --muted: #8a8780;
+  --accent: #1c1b19;
+  --accent-fg: #f7f6f3;
+  --danger: #a3341f;
+  --focus: #1c1b19;
+
+  --font-display: var(--font-inter), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  --display-weight: 300;
+  --display-tracking: -0.055em;
+
+  --surface: #f7f6f3;
+  --surface-strong: #f1efea;
+  --surface-border: #dedbd3;
+  --surface-shadow: none;
+  --surface-blur: 0px;
+  --radius: 2px;
+  --radius-sm: 2px;
+
+  --btn-bg: #1c1b19;
+  --btn-fg: #f7f6f3;
+  --btn-radius: 2px;
+  --btn-weight: 500;
+
+  --input-bg: transparent;
+  --selected-border: #1c1b19;
+  --selected-shadow: none;
+  --back-bg: #1c1b19;
+  --back-fg: #f7f6f3;
+
+  --monogram-bg: transparent;
+  --monogram-fg: #1c1b19;
+  --monogram-radius: 50%;
+
+  --bar-fill: #dedbd3;
+  --bar-lead: #1c1b19;
+  --confetti-1: #1c1b19;
+  --confetti-2: #8a8780;
+  --confetti-3: #dedbd3;
+  --confetti-4: #1c1b19;
+}
+
+[data-theme="minimal"] .heading {
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+
+[data-theme="minimal"] .candidate__name {
+  font-weight: 400;
+  font-size: clamp(18px, 2.3vw, 22px);
+}
+
+[data-theme="minimal"] .monogram {
+  font-weight: 400;
+  box-shadow: inset 0 0 0 1px #1c1b19;
+}
+
+[data-theme="minimal"] .candidate__back .candidate__check {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px #f7f6f3;
+}
+
+[data-theme="minimal"] .tag {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+}
+
+[data-theme="minimal"] .btn--ghost {
+  color: #1c1b19;
+  box-shadow: inset 0 0 0 1px #1c1b19;
+}

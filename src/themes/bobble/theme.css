@@ -1,0 +1,94 @@
+/* 11 · Желейки — sunny yellow, teal and pink, round playful type; jelly heads bounce behind the UI. */
+[data-theme="bobble"] {
+  color-scheme: light;
+  --bg: #fff3b0;
+  --bg-fallback:
+    radial-gradient(circle at 12% 18%, rgba(0, 194, 168, 0.25) 0 120px, transparent 121px),
+    radial-gradient(circle at 92% 70%, rgba(255, 93, 143, 0.22) 0 160px, transparent 161px);
+  --fg: #1e1e1e;
+  --muted: #6a6247;
+  --accent: #00c2a8;
+  --accent-fg: #ffffff;
+  --danger: #e2334f;
+  --focus: #ff5d8f;
+
+  --font-display: var(--font-comfortaa), sans-serif;
+  --font-body: var(--font-nunito), sans-serif;
+  --display-weight: 700;
+  --display-tracking: -0.04em;
+
+  /* Slightly see-through so the jellies stay visible behind the UI on narrow phone screens. */
+  --surface: rgba(255, 255, 255, 0.86);
+  --surface-strong: rgba(255, 253, 242, 0.92);
+  --surface-border: #1e1e1e;
+  --surface-shadow: 0 6px 0 #1e1e1e;
+  --radius: 30px;
+  --radius-sm: 20px;
+
+  --btn-bg: #ff5d8f;
+  --btn-fg: #ffffff;
+  --btn-radius: 999px;
+  --btn-weight: 900;
+  --btn-border: 3px solid #1e1e1e;
+  --btn-shadow: 0 5px 0 #1e1e1e;
+
+  --input-bg: #ffffff;
+  --selected-border: #1e1e1e;
+  --selected-shadow: 0 6px 0 #1e1e1e;
+  --back-bg: #00c2a8;
+  --back-fg: #ffffff;
+
+  --monogram-bg: #00c2a8;
+  --monogram-fg: #ffffff;
+  --monogram-radius: 50%;
+
+  --bar-fill: #ffcf4d;
+  --bar-lead: #ff5d8f;
+  --confetti-1: #00c2a8;
+  --confetti-2: #ff5d8f;
+  --confetti-3: #ffb000;
+  --confetti-4: #5b6cff;
+}
+
+[data-theme="bobble"] .panel,
+[data-theme="bobble"] .candidate__face,
+[data-theme="bobble"] .input {
+  border-width: 3px;
+}
+
+/* Big round photo with a white ring that bobbles on hover. */
+[data-theme="bobble"] .candidate__front .monogram {
+  width: 84px;
+  height: 84px;
+  font-size: 26px;
+  box-shadow: 0 0 0 4px #ffffff, 0 0 0 7px #1e1e1e;
+}
+
+[data-theme="bobble"] .candidate:hover .candidate__front .avatar {
+  animation: bobble-wobble 0.9s ease-in-out infinite;
+}
+
+@keyframes bobble-wobble {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  25% { transform: rotate(-12deg) translateY(-3px); }
+  75% { transform: rotate(12deg) translateY(-3px); }
+}
+
+[data-theme="bobble"] .candidate__name {
+  font-family: var(--font-comfortaa), sans-serif;
+  font-weight: 700;
+  font-size: clamp(19px, 2.4vw, 24px);
+}
+
+[data-theme="bobble"] .tag {
+  font-family: var(--font-nunito), sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #1e1e1e;
+}
+
+[data-theme="bobble"] .btn--ghost {
+  color: #1e1e1e;
+  background: #ffffff;
+  box-shadow: 0 4px 0 #1e1e1e, inset 0 0 0 3px #1e1e1e;
+}

@@ -1,0 +1,80 @@
+/* 5 · Y2K — baby blue, electric blue ink, pink highlights, sticker-like hard shadows. */
+[data-theme="y2k"] {
+  color-scheme: light;
+  --bg: #c9f0ff;
+  --bg-fallback:
+    radial-gradient(circle at 88% 12%, #ff8bd1 0 90px, transparent 91px),
+    radial-gradient(circle at 6% 92%, #fff27a 0 110px, transparent 111px);
+  --fg: #1a1aff;
+  --muted: #4b4bd6;
+  --accent: #ff3db4;
+  --accent-fg: #ffffff;
+  --danger: #e0006a;
+  --focus: #ff3db4;
+
+  --font-display: var(--font-unbounded), sans-serif;
+  --font-body: var(--font-golos), sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.03em;
+
+  --surface: #ffffff;
+  --surface-strong: #fff8fc;
+  --surface-border: #1a1aff;
+  --surface-shadow: 6px 6px 0 #1a1aff;
+  --radius: 28px;
+  --radius-sm: 999px;
+
+  --btn-bg: #1a1aff;
+  --btn-fg: #fff27a;
+  --btn-radius: 999px;
+  --btn-weight: 800;
+  --btn-border: 2px solid #1a1aff;
+  --btn-shadow: 4px 4px 0 #ff3db4;
+  --btn-transform: uppercase;
+
+  --input-bg: #ffffff;
+  --selected-border: #1a1aff;
+  --selected-shadow: 8px 8px 0 #1a1aff;
+  --back-bg: #ff8bd1;
+  --back-fg: #1a1aff;
+
+  --monogram-bg: #fff27a;
+  --monogram-fg: #1a1aff;
+  --monogram-radius: 50%;
+
+  --bar-fill: #7d84ff;
+  --bar-lead: #ff3db4;
+  --confetti-1: #ff3db4;
+  --confetti-2: #fff27a;
+  --confetti-3: #1a1aff;
+  --confetti-4: #ffffff;
+}
+
+[data-theme="y2k"] .display {
+  color: #1a1aff;
+  text-shadow: 4px 4px 0 #ff8bd1;
+  /* Unbounded is very wide: scale the headline down so long words don't break on phones. */
+  font-size: clamp(30px, 8vw, 104px);
+}
+
+[data-theme="y2k"] .panel,
+[data-theme="y2k"] .candidate__face,
+[data-theme="y2k"] .input {
+  border-width: 2px;
+}
+
+[data-theme="y2k"] .monogram {
+  box-shadow: inset 0 0 0 2px #1a1aff;
+}
+
+[data-theme="y2k"] .tag {
+  font-family: var(--font-golos), sans-serif;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+[data-theme="y2k"] .btn--ghost {
+  color: #1a1aff;
+  background: #ffffff;
+  box-shadow: 3px 3px 0 #1a1aff, inset 0 0 0 2px #1a1aff;
+}

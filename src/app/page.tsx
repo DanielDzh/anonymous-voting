@@ -1,69 +1,131 @@
-import Image from "next/image";
+import { Suspense } from "react";
+import { ResultsBoard } from "@/components/results/results-board";
+import { HeroStage } from "@/components/three-d/hero-stage";
+import { HERO_MAX_PEOPLE } from "@/config/visuals";
+import { ThemeScene } from "@/components/three-d/theme-scene";
+import { DisplayTitle } from "@/components/ui/display-title";
+import { CodeStep } from "@/components/voting/code-step";
+import { PhaseNotice } from "@/components/voting/phase-notice";
+import { VotingFlow } from "@/components/voting/voting-flow";
+import { CODE_QUERY_PARAM, PHASE_LABELS } from "@/config/voting";
+import { getPublicView } from "@/lib/queries";
+import type { PublicSnapshot } from "@/lib/view-models";
+import { ENTRY_THEME, themeStage, themeUsesPhotos } from "@/themes/registry";
 
-export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+type SearchParams = PageProps<"/">["searchParams"];
+
+const readLinkCode = async (searchParams: SearchParams): Promise<string | null> => {
+  const value = (await searchParams)[CODE_QUERY_PARAM];
+  return typeof value === "string" ? value : null;
+};
+
+/** Photos of everyone on screen, in ballot order — the 3D scene of photo themes builds from these. */
+const photosOf = (snapshot: PublicSnapshot): string[] =>
+  [...snapshot.ballot, ...(snapshot.results ?? [])]
+    .flatMap((position) => position.candidates.map((candidate) => candidate.photo))
+    .filter((photo): photo is string => Boolean(photo));
+
+/** Everyone on the ballot (or in the results), for hero stages: one character each. */
+const peopleOf = (snapshot: PublicSnapshot) =>
+  [...snapshot.ballot, ...(snapshot.results ?? [])].flatMap((position) =>
+    position.candidates.map(({ id, name, photo }) => ({ id, name, photo })),
+  );
+
+const FOOTER = "Один код — один голос · Хто за кого голосував, не знає ніхто";
+
+/** No code yet (or a wrong one): just the code form — which votings exist stays private. */
+const EntryView = ({ codeRejected }: { codeRejected: boolean }) => (
+  <div className="theme-root" data-theme={ENTRY_THEME}>
+    <ThemeScene theme={ENTRY_THEME} />
+    <main className="stage">
+      <header className="rise3d mb-12 flex flex-col gap-5 sm:mb-16">
+        <p className="tag">Анонімне голосування</p>
+        <DisplayTitle text="Введіть код" className="text-[clamp(44px,10vw,120px)]" />
+      </header>
+      <div className="flex flex-col gap-4">
+        {codeRejected && (
+          <p className="error mx-auto" role="alert">
+            Код у посиланні невірний або застарів — введіть актуальний код
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        )}
+        <CodeStep />
+      </div>
+      <p className="tag mt-24 text-center">{FOOTER}</p>
+    </main>
+  </div>
+);
+
+const VoterView = async ({ searchParams }: { searchParams: SearchParams }) => {
+  const view = await getPublicView(await readLinkCode(searchParams));
+  if (view.kind === "entry") return <EntryView codeRejected={view.codeRejected} />;
+  const { snapshot } = view;
+  const usesPhotos = themeUsesPhotos(snapshot.theme);
+  const stage = themeStage(snapshot.theme);
+  // Hero and game themes draw their scene in a box under the title instead of a full-screen background.
+  const isHero = stage !== "background";
+  // Cannon themes vote by shooting only — as long as every candidate has a target on the stage
+  // (one position, up to HERO_MAX_PEOPLE). Otherwise the cards come back so nobody is stuck.
+  const gameOnly =
+    stage === "game" && snapshot.ballot.length === 1 && snapshot.ballot[0].candidates.length <= HERO_MAX_PEOPLE;
+
+  return (
+    <div className="theme-root" data-theme={snapshot.theme}>
+      {!isHero && <ThemeScene theme={snapshot.theme} photos={usesPhotos ? photosOf(snapshot) : []} />}
+      <main className="stage">
+        <header className="rise3d mb-12 flex flex-col gap-5 sm:mb-16">
+          <p className="tag flex flex-wrap items-center gap-3">
+            Анонімне голосування
+            <span className="rounded-full border border-[color:var(--surface-border)] px-3 py-1 text-fg">
+              {PHASE_LABELS[snapshot.phase]}
+            </span>
+          </p>
+          <DisplayTitle text={snapshot.title} className="text-[clamp(44px,10vw,120px)]" />
+        </header>
+
+        {isHero && <HeroStage theme={snapshot.theme} people={peopleOf(snapshot)} game={stage === "game"} />}
+
+        {snapshot.phase === "draft" && (
+          <PhaseNotice heading="Скоро старт" text="Голосування ще не відкрите. Коли його відкриють, відскануйте QR або введіть код від організатора." />
+        )}
+
+        {snapshot.phase === "open" && (
+          <VotingFlow
+            // A different voting (new code) starts its flow from scratch.
+            key={snapshot.code}
+            code={snapshot.code}
+            positions={snapshot.ballot}
+            alreadyVoted={snapshot.alreadyVoted}
+            gameOnly={gameOnly}
+          />
+        )}
+
+        {snapshot.phase === "closed" && (
+          <PhaseNotice heading="Голосування завершено" text="Прийом голосів закрито. Результати з'являться тут після публікації." />
+        )}
+
+        {snapshot.phase === "results" && snapshot.results && (
+          <div className="flex flex-col gap-5">
+            <p className="tag">Усього бюлетенів: {snapshot.ballotsCast}</p>
+            <ResultsBoard positions={snapshot.results} />
+          </div>
+        )}
+
+        <p className="tag mt-24 text-center">{FOOTER}</p>
       </main>
     </div>
   );
-}
+};
+
+const LoadingShell = () => (
+  <main className="stage">
+    <p className="tag animate-pulse">Завантаження…</p>
+  </main>
+);
+
+const HomePage = ({ searchParams }: PageProps<"/">) => (
+  <Suspense fallback={<LoadingShell />}>
+    <VoterView searchParams={searchParams} />
+  </Suspense>
+);
+
+export default HomePage;
