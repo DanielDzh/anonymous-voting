@@ -1,0 +1,71 @@
+/* 3 · Bento — warm paper, bold black, lime / pink / violet tiles. */
+[data-theme="bento"] {
+  color-scheme: light;
+  --bg: #f4f1ea;
+  --bg-fallback: radial-gradient(ellipse 70% 50% at 80% 0%, rgba(185, 255, 102, 0.35), transparent 70%);
+  --fg: #111111;
+  --muted: #6b675e;
+  --accent: #6b5cff;
+  --accent-fg: #ffffff;
+  --danger: #d6322e;
+  --focus: #6b5cff;
+
+  --font-display: var(--font-onest), sans-serif;
+  --font-body: var(--font-onest), sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.045em;
+
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --surface-border: rgba(17, 17, 17, 0.08);
+  --surface-shadow: 0 18px 40px -24px rgba(17, 17, 17, 0.35);
+  --radius: 26px;
+  --radius-sm: 16px;
+
+  --btn-bg: #6b5cff;
+  --btn-fg: #ffffff;
+  --btn-radius: 18px;
+  --btn-weight: 800;
+  --btn-shadow: 0 12px 26px -12px rgba(107, 92, 255, 0.7);
+
+  --input-bg: #ffffff;
+  --selected-border: #111111;
+  --selected-shadow: 0 0 0 3px #111111;
+  --back-bg: #111111;
+  --back-fg: #b9ff66;
+
+  --monogram-bg: #111111;
+  --monogram-fg: #ffffff;
+  --monogram-radius: 14px;
+
+  --bar-fill: #d9d4c7;
+  --bar-lead: #6b5cff;
+  --confetti-1: #b9ff66;
+  --confetti-2: #ffd6e8;
+  --confetti-3: #6b5cff;
+  --confetti-4: #111111;
+}
+
+/* Candidate tiles alternate lime / pink like the bento board. */
+[data-theme="bento"] .rise3d:nth-child(odd) > .candidate .candidate__front {
+  background: #b9ff66;
+}
+
+[data-theme="bento"] .rise3d:nth-child(even) > .candidate .candidate__front {
+  background: #ffd6e8;
+}
+
+[data-theme="bento"] .candidate__front {
+  border: 0;
+  min-height: 120px;
+}
+
+[data-theme="bento"] .candidate__name {
+  font-weight: 800;
+  font-size: clamp(19px, 2.4vw, 23px);
+}
+
+[data-theme="bento"] .btn--ghost {
+  color: #111111;
+  box-shadow: inset 0 0 0 2px #111111;
+}

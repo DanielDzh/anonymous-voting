@@ -1,0 +1,130 @@
+/* 12 · Комікс — halftone yellow, inked outlines, hard offset shadows, speech bubbles and POW. */
+[data-theme="comic"] {
+  color-scheme: light;
+  --bg: #ffd23f;
+  /* Halftone dots. */
+  --bg-fallback: radial-gradient(circle, rgba(230, 57, 70, 0.28) 1.6px, transparent 2px) 0 0 / 14px 14px;
+  --fg: #111111;
+  --muted: #3d3d3d;
+  --accent: #e63946;
+  --accent-fg: #ffffff;
+  --danger: #b00020;
+  --focus: #3ec1d3;
+
+  --font-display: var(--font-rubik-mono), sans-serif;
+  --font-body: var(--font-pangolin), cursive;
+  --display-weight: 400;
+  --display-tracking: -0.01em;
+  --display-transform: uppercase;
+
+  --surface: #ffffff;
+  --surface-strong: #fffbe8;
+  --surface-border: #111111;
+  --surface-shadow: 8px 8px 0 #111111;
+  --radius: 6px;
+  --radius-sm: 4px;
+
+  --btn-bg: #e63946;
+  --btn-fg: #ffffff;
+  --btn-radius: 6px;
+  --btn-weight: 400;
+  --btn-border: 4px solid #111111;
+  --btn-shadow: 6px 6px 0 #111111;
+  --btn-transform: uppercase;
+
+  --input-bg: #ffffff;
+  --selected-border: #111111;
+  --selected-shadow: 10px 10px 0 #111111;
+  --back-bg: #e63946;
+  --back-fg: #ffffff;
+
+  --monogram-bg: #3ec1d3;
+  --monogram-fg: #111111;
+  --monogram-radius: 4px;
+
+  --bar-fill: #3ec1d3;
+  --bar-lead: #e63946;
+  --confetti-1: #e63946;
+  --confetti-2: #ffd23f;
+  --confetti-3: #3ec1d3;
+  --confetti-4: #111111;
+}
+
+[data-theme="comic"] .display {
+  color: #ffffff;
+  -webkit-text-stroke: 3px #111111;
+  paint-order: stroke fill;
+  text-shadow: 6px 6px 0 #e63946;
+  font-size: clamp(30px, 7.5vw, 96px);
+}
+
+[data-theme="comic"] .panel,
+[data-theme="comic"] .candidate__face,
+[data-theme="comic"] .input {
+  border-width: 4px;
+}
+
+[data-theme="comic"] .candidate__front .monogram {
+  width: 88px;
+  height: 88px;
+  font-size: 26px;
+  box-shadow: 0 0 0 4px #111111;
+}
+
+/* Speech bubble. */
+[data-theme="comic"] .candidate__front::after {
+  content: "ОБЕРИ МЕНЕ!";
+  position: absolute;
+  top: -18px;
+  right: 18px;
+  padding: 4px 12px;
+  font-family: var(--font-pangolin), cursive;
+  font-size: 15px;
+  color: #111111;
+  background: #ffffff;
+  border: 3px solid #111111;
+  border-radius: 14px;
+  transform: rotate(4deg);
+}
+
+[data-theme="comic"] .candidate__front {
+  position: relative;
+}
+
+/* "БАМ!" stamped over the top corner of the chosen side — never on top of the name. */
+[data-theme="comic"] .candidate__back::after {
+  content: "БАМ!";
+  position: absolute;
+  top: -20px;
+  right: 14px;
+  font-family: var(--font-rubik-mono), sans-serif;
+  font-size: 24px;
+  color: #ffd23f;
+  -webkit-text-stroke: 2px #111111;
+  paint-order: stroke fill;
+  transform: rotate(-8deg);
+}
+
+[data-theme="comic"] .candidate__name {
+  font-family: var(--font-rubik-mono), sans-serif;
+  font-size: clamp(15px, 1.9vw, 19px);
+  text-transform: uppercase;
+}
+
+[data-theme="comic"] .tag {
+  font-family: var(--font-pangolin), cursive;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: #111111;
+}
+
+[data-theme="comic"] .heading {
+  text-transform: uppercase;
+}
+
+[data-theme="comic"] .btn--ghost {
+  color: #111111;
+  background: #ffffff;
+  box-shadow: 4px 4px 0 #111111, inset 0 0 0 3px #111111;
+}

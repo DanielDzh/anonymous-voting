@@ -1,0 +1,134 @@
+/*
+ * 14 · Чортики, 15 · Ляльки, 16 · Йо-йо — the spring themes share one playful base
+ * (rounded type, inked outlines, see-through cards so the faces stay visible on phones);
+ * each only swaps its palette below.
+ */
+[data-theme="jackbox"],
+[data-theme="dolls"],
+[data-theme="yoyo"] {
+  color-scheme: light;
+  --fg: #1e1e1e;
+  --muted: #5f5a4f;
+  --danger: #e2334f;
+
+  --font-display: var(--font-comfortaa), sans-serif;
+  --font-body: var(--font-nunito), sans-serif;
+  --display-weight: 700;
+  --display-tracking: -0.04em;
+
+  --surface: rgba(255, 255, 255, 0.86);
+  --surface-strong: rgba(255, 255, 255, 0.94);
+  --surface-border: #1e1e1e;
+  --surface-shadow: 0 6px 0 #1e1e1e;
+  --radius: 28px;
+  --radius-sm: 18px;
+
+  --btn-fg: #ffffff;
+  --btn-radius: 999px;
+  --btn-weight: 900;
+  --btn-border: 3px solid #1e1e1e;
+  --btn-shadow: 0 5px 0 #1e1e1e;
+
+  --input-bg: #ffffff;
+  --selected-border: #1e1e1e;
+  --selected-shadow: 0 6px 0 #1e1e1e;
+  --back-fg: #ffffff;
+  --monogram-fg: #ffffff;
+  --monogram-radius: 50%;
+}
+
+[data-theme="jackbox"] {
+  /* The scene lives in its own header stage, so cards can be fully opaque again. */
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --bg: #fff1f6;
+  --bg-fallback: radial-gradient(circle at 85% 10%, rgba(255, 176, 0, 0.3) 0 140px, transparent 141px);
+  --accent: #ff5d8f;
+  --accent-fg: #ffffff;
+  --focus: #5b6cff;
+  --btn-bg: #ff5d8f;
+  --back-bg: #5b6cff;
+  --monogram-bg: #ff5d8f;
+  --bar-fill: #ffd0df;
+  --bar-lead: #ff5d8f;
+  --confetti-1: #ff5d8f;
+  --confetti-2: #00c2a8;
+  --confetti-3: #ffb000;
+  --confetti-4: #5b6cff;
+}
+
+[data-theme="dolls"] {
+  --bg: #e9f7ef;
+  --bg-fallback: radial-gradient(ellipse 80% 40% at 50% 100%, rgba(0, 194, 168, 0.25), transparent 70%);
+  --accent: #00a58e;
+  --accent-fg: #ffffff;
+  --focus: #ff5d8f;
+  --btn-bg: #00c2a8;
+  --back-bg: #ff5d8f;
+  --monogram-bg: #00c2a8;
+  --bar-fill: #bfe9df;
+  --bar-lead: #00c2a8;
+  --confetti-1: #00c2a8;
+  --confetti-2: #ff5d8f;
+  --confetti-3: #ffb000;
+  --confetti-4: #2b2d42;
+}
+
+[data-theme="yoyo"] {
+  --bg: #e8f4ff;
+  --bg-fallback: linear-gradient(180deg, rgba(91, 108, 255, 0.18), transparent 35%);
+  --accent: #5b6cff;
+  --accent-fg: #ffffff;
+  --focus: #ff5d8f;
+  --btn-bg: #5b6cff;
+  --back-bg: #ffb000;
+  --monogram-bg: #5b6cff;
+  --bar-fill: #c9d2ff;
+  --bar-lead: #5b6cff;
+  --confetti-1: #5b6cff;
+  --confetti-2: #ff5d8f;
+  --confetti-3: #ffb000;
+  --confetti-4: #00c2a8;
+}
+
+:is([data-theme="jackbox"], [data-theme="dolls"], [data-theme="yoyo"]) :is(.panel, .candidate__face, .input) {
+  border-width: 3px;
+}
+
+:is([data-theme="jackbox"], [data-theme="dolls"], [data-theme="yoyo"]) .candidate__front .monogram {
+  width: 84px;
+  height: 84px;
+  font-size: 26px;
+  box-shadow: 0 0 0 4px #ffffff, 0 0 0 7px #1e1e1e;
+}
+
+/* The card's photo boings like the faces in the scene. */
+:is([data-theme="jackbox"], [data-theme="dolls"], [data-theme="yoyo"]) .candidate:hover .candidate__front .avatar,
+:is([data-theme="jackbox"], [data-theme="dolls"], [data-theme="yoyo"]) .candidate[aria-checked="true"] .avatar {
+  animation: spring-boing 0.9s cubic-bezier(0.3, 1.8, 0.5, 1) infinite;
+}
+
+@keyframes spring-boing {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  30% { transform: translateY(-8px) rotate(-8deg) scale(1.06, 0.94); }
+  60% { transform: translateY(2px) rotate(6deg) scale(0.97, 1.03); }
+}
+
+:is([data-theme="jackbox"], [data-theme="dolls"], [data-theme="yoyo"]) .candidate__name {
+  font-family: var(--font-comfortaa), sans-serif;
+  font-weight: 700;
+  font-size: clamp(19px, 2.4vw, 24px);
+}
+
+:is([data-theme="jackbox"], [data-theme="dolls"], [data-theme="yoyo"]) .tag {
+  font-family: var(--font-nunito), sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #1e1e1e;
+}
+
+:is([data-theme="jackbox"], [data-theme="dolls"], [data-theme="yoyo"]) .btn--ghost {
+  color: #1e1e1e;
+  background: #ffffff;
+  box-shadow: 0 4px 0 #1e1e1e, inset 0 0 0 3px #1e1e1e;
+}

@@ -1,0 +1,220 @@
+/*
+ * 17 · Мішень, 18 · Пірати, 19 · Космос, 20 · Кільце, 21 · Кеглі, 22 · Дартс — the cannon game themes. The scene is its own boxed
+ * stage above the ballot, so cards are fully opaque; each theme only sets its palette.
+ */
+[data-theme="pirate"] {
+  color-scheme: light;
+  --fg: #1e1e1e;
+  --muted: #5f5a4f;
+  --danger: #d62839;
+
+  --font-display: var(--font-rubik-mono), sans-serif;
+  --font-body: var(--font-nunito), sans-serif;
+  --display-weight: 400;
+  --display-tracking: -0.02em;
+
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --surface-border: #1e1e1e;
+  --surface-shadow: 0 6px 0 #1e1e1e;
+  --radius: 22px;
+  --radius-sm: 14px;
+
+  --btn-fg: #ffffff;
+  --btn-radius: 14px;
+  --btn-weight: 900;
+  --btn-border: 3px solid #1e1e1e;
+  --btn-shadow: 0 5px 0 #1e1e1e;
+
+  --input-bg: #ffffff;
+  --selected-border: #1e1e1e;
+  --selected-shadow: 0 6px 0 #1e1e1e;
+  --back-fg: #ffffff;
+  --monogram-fg: #ffffff;
+  --monogram-radius: 50%;
+}
+
+[data-theme="pirate"] {
+  --bg: #e4f3fa;
+  --bg-fallback: linear-gradient(180deg, rgba(31, 120, 180, 0.18), transparent 40%);
+  --accent: #7a4a26;
+  --accent-fg: #ffffff;
+  --focus: #1f78b4;
+  --btn-bg: #7a4a26;
+  --back-bg: #1f78b4;
+  --monogram-bg: #7a4a26;
+  --bar-fill: #d6c3ae;
+  --bar-lead: #7a4a26;
+  --confetti-1: #7a4a26;
+  --confetti-2: #1f78b4;
+  --confetti-3: #f2c14e;
+  --confetti-4: #ffffff;
+}
+
+[data-theme="space"] {
+  color-scheme: dark;
+  --bg: #05051a;
+  --bg-fallback: radial-gradient(ellipse 70% 45% at 50% -5%, rgba(123, 92, 255, 0.35), transparent 70%);
+  --fg: #f2f4ff;
+  --muted: #9aa0c8;
+  --accent: #38f2ff;
+  --accent-fg: #05051a;
+  --focus: #ff3df2;
+
+  --font-display: var(--font-unbounded), sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.03em;
+
+  --surface: #0e0f2e;
+  --surface-strong: #15163d;
+  --surface-border: rgba(56, 242, 255, 0.25);
+  --surface-shadow: 0 0 40px -18px rgba(56, 242, 255, 0.6);
+  --radius: 18px;
+  --radius-sm: 12px;
+
+  --btn-bg: linear-gradient(90deg, #38f2ff, #ff3df2);
+  --btn-fg: #05051a;
+  --btn-radius: 999px;
+  --btn-shadow: 0 0 30px -6px rgba(56, 242, 255, 0.8);
+
+  --selected-border: #38f2ff;
+  --selected-bg: rgba(56, 242, 255, 0.08);
+  --selected-shadow: 0 0 0 3px rgba(56, 242, 255, 0.2), 0 0 40px -8px rgba(56, 242, 255, 0.7);
+  --back-bg: linear-gradient(135deg, #2a1a6b, #7b5cff 60%, #ff3df2);
+  --back-fg: #ffffff;
+  --monogram-bg: linear-gradient(135deg, #7b5cff, #38f2ff);
+  --monogram-fg: #05051a;
+  --monogram-radius: 50%;
+
+  --bar-fill: linear-gradient(180deg, #2b2d5c, #17183a);
+  --bar-lead: linear-gradient(180deg, #38f2ff, #7b5cff);
+  --confetti-1: #38f2ff;
+  --confetti-2: #ff3df2;
+  --confetti-3: #fff27a;
+  --confetti-4: #7b5cff;
+}
+
+[data-theme="pirate"] :is(.panel, .candidate__face, .input) {
+  border-width: 3px;
+}
+
+:is([data-theme="pirate"], [data-theme="space"]) .candidate__front .monogram {
+  width: 72px;
+  height: 72px;
+  font-size: 22px;
+}
+
+[data-theme="pirate"] .candidate__name {
+  font-family: var(--font-nunito), sans-serif;
+  font-weight: 900;
+  font-size: clamp(19px, 2.4vw, 24px);
+}
+
+[data-theme="pirate"] .tag {
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #1e1e1e;
+}
+
+[data-theme="pirate"] .btn--ghost {
+  color: #1e1e1e;
+  background: #ffffff;
+  box-shadow: 0 4px 0 #1e1e1e, inset 0 0 0 3px #1e1e1e;
+}
+
+/* The game box gets the theme's inked frame. */
+[data-theme="pirate"] .hero-stage--game .hero-stage__scene {
+  border: 3px solid #1e1e1e;
+  box-shadow: 0 6px 0 #1e1e1e;
+}
+
+[data-theme="space"] .hero-stage--game .hero-stage__scene {
+  border: 1px solid rgba(56, 242, 255, 0.35);
+  box-shadow: 0 0 50px -16px rgba(56, 242, 255, 0.7);
+}
+
+/* 17 · Мішень, 20 · Кільце, 21 · Кеглі and 22 · Дартс — the minimal games: paper, ink, hairlines and one red accent (the chosen one). */
+:is([data-theme="fair"], [data-theme="hoop"], [data-theme="bowling"], [data-theme="darts"]) {
+  color-scheme: light;
+  --bg: #f7f6f3;
+  --bg-fallback: linear-gradient(transparent, transparent);
+  --fg: #1c1b19;
+  --muted: #8a8780;
+  --accent: #e5322d;
+  --accent-fg: #ffffff;
+  --danger: #a3341f;
+  --focus: #1c1b19;
+
+  --font-display: var(--font-inter), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  --display-weight: 300;
+  --display-tracking: -0.055em;
+
+  --surface: #f7f6f3;
+  --surface-strong: #f1efea;
+  --surface-border: #dedbd3;
+  --surface-shadow: none;
+  --surface-blur: 0px;
+  --radius: 4px;
+  --radius-sm: 4px;
+
+  --btn-bg: #1c1b19;
+  --btn-fg: #f7f6f3;
+  --btn-radius: 4px;
+  --btn-weight: 500;
+
+  --input-bg: transparent;
+  --selected-border: #e5322d;
+  --selected-shadow: none;
+  --back-bg: #1c1b19;
+  --back-fg: #f7f6f3;
+
+  --monogram-bg: transparent;
+  --monogram-fg: #1c1b19;
+  --monogram-radius: 50%;
+
+  --bar-fill: #dedbd3;
+  --bar-lead: #e5322d;
+  --confetti-1: #1c1b19;
+  --confetti-2: #e5322d;
+  --confetti-3: #8a8780;
+  --confetti-4: #dedbd3;
+}
+
+:is([data-theme="fair"], [data-theme="hoop"], [data-theme="bowling"], [data-theme="darts"]) .hero-stage--game .hero-stage__scene {
+  border: 1px solid #dedbd3;
+}
+
+/* Names over the targets: light and quiet, like the title. */
+:is([data-theme="fair"], [data-theme="hoop"], [data-theme="bowling"], [data-theme="darts"]) .hero-stage__names {
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* The chosen candidate's photo carries the accent ring, like its target. */
+:is([data-theme="fair"], [data-theme="hoop"], [data-theme="bowling"], [data-theme="darts"]) .panel .avatar--has-photo .avatar__photo {
+  box-shadow: 0 0 0 2px #f7f6f3, 0 0 0 3px #e5322d;
+}
+
+/* Scoring games: the tally under each name, the leader in the accent colour. */
+.hero-stage__score {
+  display: block;
+  margin-top: 2px;
+  font-size: clamp(26px, 7vw, 40px);
+  font-weight: 300;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.hero-stage__score.is-leading {
+  color: var(--accent);
+}
+
+/* Long names wrap to two lines: keep every tally on the same baseline. */
+.hero-stage__names li:has(.hero-stage__score) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
